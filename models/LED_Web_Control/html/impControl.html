@@ -25,7 +25,7 @@ Your name? So we know who to blame! <input type="text" name="user" placeholder="
 <script language="javascript">
 
 function sendRequest() {
-	ledForm = document.leds;
+    ledForm = document.leds;
     urlForm = document.url;
     
     url = "https://agent.electricimp.com/" + urlForm.agentUrl.value;
@@ -36,7 +36,7 @@ function sendRequest() {
     for (i = 0; i < leds.length; i++)
     {
     	if (leds[i].checked)
-    		ledValue = leds[i].value;
+            ledValue = leds[i].value;
     }
 
     url += "?led=" + encodeURIComponent(ledValue);
