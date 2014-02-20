@@ -2,11 +2,11 @@
 <head>
 </head>
 
-<body onLoad=updateURL()>
+<body>
 
 <h4>What is your agent's url?</h4>
 <form name="url">
-https://agent.electricimp.com/<input type="text" name="agentUrl" placeholder="UpyYpRLmBB7m" onChange=updateURL()>
+https://agent.electricimp.com/<input type="text" name="agentUrl" placeholder="UpyYpRLmBB7m">
 </form>
 
 <h4>Imp Inputs:</h4>
@@ -17,17 +17,37 @@ Set the RGB LED: <input type="color" name="rgb">  (Chrome/Opera use color input,
 How long should the LEDs stay on? <input type="text" name="timer" value="10">seconds<br>
 Your name? So we know who to blame! <input type="text" name="user" placeholder="Your name here"><br>
 <br>
-<input type="submit" value="Update!">
+<input type="button" value="Update!" onClick=sendRequest()>
 </form>
 
 </body>
 
 <script language="javascript">
 
- function updateURL() {
-    ledForm = document.leds;
+function sendRequest() {
+	ledForm = document.leds;
     urlForm = document.url;
-    ledForm.action = "https://agent.electricimp.com/" + urlForm.agentUrl.value;
+    
+    url = "https://agent.electricimp.com/" + urlForm.agentUrl.value;
+
+    leds = document.getElementsByName("led");
+    ledValue = "0";
+
+    for (i = 0; i < leds.length; i++)
+    {
+    	if (leds[i].checked)
+    		ledValue = leds[i].value;
+    }
+
+    url += "?led=" + encodeURIComponent(ledValue);
+    url += "&rgb=" + encodeURIComponent(document.leds.rgb.value);
+    url += "&timer=" + encodeURIComponent(document.leds.timer.value);
+    url += "&user=" + encodeURIComponent(document.leds.user.value);
+
+    request = new XMLHttpRequest();
+    request.open("GET", url, false);
+    request.setRequestHeader("User-Agent", navigator.userAgent);
+    request.send(null);
 }
 
 </script>
