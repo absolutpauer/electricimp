@@ -25,10 +25,7 @@ Your name? So we know who to blame! <input type="text" name="user" placeholder="
 <script language="javascript">
 
 function sendRequest() {
-    ledForm = document.leds;
-    urlForm = document.url;
-    
-    url = "https://agent.electricimp.com/" + urlForm.agentUrl.value;
+    url = "https://agent.electricimp.com/" + document.url.agentUrl.value;
 
     leds = document.getElementsByName("led");
     ledValue = "0";
